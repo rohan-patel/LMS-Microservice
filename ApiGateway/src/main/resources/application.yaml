@@ -1,0 +1,32 @@
+server:
+  port: 8082
+  
+  
+  
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lowerCaseServiceId: true
+      routes:
+      - id: books-test
+        uri: lb://book-ws
+        predicates:
+        - Path=/books/test
+        - Method=GET
+    
+
+    
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8010/eureka
+  instance:
+    instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    
