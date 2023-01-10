@@ -96,7 +96,7 @@ public class EmployeeController {
 		Employee employee = optionalEmployee.get();
 		
 		for (Map.Entry<String, Object> entry : payload.entrySet()) {
-			if (entry.getKey() != "employeeId") {
+			if (entry.getKey() == "employeeId") {
 				continue;
 			}
 			switch (entry.getKey()) {

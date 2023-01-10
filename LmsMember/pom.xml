@@ -8,13 +8,13 @@
 		<version>3.0.1</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.rohan.lms.employees</groupId>
-	<artifactId>LmsEmployees</artifactId>
+	<groupId>com.rohan.lms.api.member</groupId>
+	<artifactId>LmsMember</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>LmsEmployees</name>
-	<description>Microservice to Handle Employes</description>
+	<name>LmsMember</name>
+	<description>Microservice to Handle Members</description>
 	<properties>
-		<java.version>8</java.version>
+		<java.version>17</java.version>
 		<spring-cloud.version>2022.0.0</spring-cloud.version>
 	</properties>
 	<dependencies>
