@@ -1,8 +1,6 @@
 server:
   port: 8082
   
-  
-  
 spring:
   application:
     name: api-gateway
@@ -13,13 +11,16 @@ spring:
           enabled: true
           lowerCaseServiceId: true
       routes:
-      - id: books-test
+      - id: books
         uri: lb://book-ws
         predicates:
-        - Path=/books/test
-        - Method=GET
-    
-
+        - Path=/books/*
+        - Method=GET,POST,PUT,DELETE
+      - id: employees
+        uri: lb://employee-ws
+        predicates:
+        - Path=/employees/*
+        - Method=GET,POST,PUT,DELETE
     
 eureka:
   client:
