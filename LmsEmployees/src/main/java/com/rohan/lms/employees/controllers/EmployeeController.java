@@ -39,7 +39,7 @@ public class EmployeeController {
 	@Autowired
 	private RestTemplate restTemplate;
 
-	@GetMapping("all")
+	@GetMapping("/all")
 	public ResponseEntity<List<Employee>> getAllEMployees() {
 
 		List<Employee> empList = new ArrayList<>();
