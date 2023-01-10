@@ -42,8 +42,12 @@ public class BookController {
 	private RestTemplate restTemplate;
 
 	/*
-	 * GET - get all books GET - get a book by isbn POST - add a book to library PUT
-	 * - update a book details by book id (partial update - isbn is necessary)
+	 * GET - get all books 
+	 * GET - get a book by isbn 
+	 * GET - get a book by Genre
+	 * GET - get a book by Author name
+	 * POST - add a book to library 
+	 * PUT - update a book details by book id (partial update - isbn is necessary)
 	 * DELETE - remove a book from library
 	 */
 
@@ -55,7 +59,7 @@ public class BookController {
 		return new ResponseEntity<>(bookList, HttpStatus.OK);
 	}
 
-	@GetMapping
+	@GetMapping("/")
 	public ResponseEntity<Book> getOneBook(@RequestParam String isbn) {
 
 		Optional<Book> optionalBook = bookRepo.findById(isbn);
@@ -77,7 +81,6 @@ public class BookController {
 		return new ResponseEntity<>(books, HttpStatus.OK);
 	}
 
-	// some checks
 	@GetMapping("/author")
 	public ResponseEntity<List<Book>> getBookByAuthor(@RequestParam String author) {
 
