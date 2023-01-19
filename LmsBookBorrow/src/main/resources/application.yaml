@@ -17,6 +17,7 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
+        enableLazyLoadNoTrans: true
     hibernate:
       ddl-auto: update
   h2:
@@ -34,5 +35,7 @@ eureka:
     instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
 
 
-
+springjms:
+  requestQueue: requestQueue
+  replyQueue: replyQueue
 
