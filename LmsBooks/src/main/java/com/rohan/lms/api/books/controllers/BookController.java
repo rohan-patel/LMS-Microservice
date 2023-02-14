@@ -30,6 +30,7 @@ import org.springframework.web.client.RestTemplate;
 import com.rohan.lms.api.books.model.Book;
 import com.rohan.lms.api.books.model.Error;
 import com.rohan.lms.api.books.repository.BookRepository;
+import com.rohan.lms.api.books.utilities.Utilities;
 
 @RestController
 @RequestMapping("/books")
@@ -65,7 +66,7 @@ public class BookController {
 		Optional<Book> optionalBook = bookRepo.findById(isbn);
 		if (optionalBook.isPresent() != true) {
 			String message = "Book with isbn " + isbn + " not found in the database";
-			return buildRestTemplate(message, "entity-not-found");
+			return Utilities.buildRestTemplate(message, "entity-not-found");
 		}
 
 		Book book = optionalBook.get();
@@ -94,7 +95,7 @@ public class BookController {
 
 		if (bookRepo.findById(book.getIsbn()).isPresent() == true) {
 			String message = "Book with isbn " + book.getIsbn() + " already exists in the database";
-			return buildRestTemplate(message, "entity-already-exists");
+			return Utilities.buildRestTemplate(message, "entity-already-exists");
 		}
 
 		Book _book = bookRepo.save(new Book(book.getIsbn(), book.getBookName(), book.getBookGenre(),
@@ -108,7 +109,7 @@ public class BookController {
 
 		if (payload.get("isbn") == null) {
 			String message = "Please provide a valid ISBN of the book present in the database";
-			return buildRestTemplate(message, "insufficient-data");
+			return Utilities.buildRestTemplate(message, "insufficient-data");
 		}
 
 		Optional<Book> optionalBook = bookRepo.findById((String) payload.get("isbn"));
@@ -116,7 +117,7 @@ public class BookController {
 
 		if (book == null) {
 			String message = "Book with isbn " + payload.get("isbn") + " not found in the database";
-			return buildRestTemplate(message, "entity-not-found");
+			return Utilities.buildRestTemplate(message, "entity-not-found");
 		}
 
 		List<String> authorNames = (List<String>) payload.get("authorName");
@@ -153,7 +154,7 @@ public class BookController {
 
 		if (bookRepo.findById(isbn).isPresent() != true) {
 			String message = "Book with isbn " + isbn + " not found in the database";
-			return buildRestTemplate(message, "entity-not-found");
+			return Utilities.buildRestTemplate(message, "entity-not-found");
 		}
 
 		bookRepo.deleteById(isbn);
@@ -161,20 +162,5 @@ public class BookController {
 		return new ResponseEntity<>("The book was deleted successfully", HttpStatus.OK);
 	}
 
-//	Utility Functions
-	public ResponseEntity buildRestTemplate(String message, String exception) {
-
-		String url = "http://localhost:8082/exception-ws/" + exception + "?message=" + message;
-
-		HttpHeaders httpHeaders = new HttpHeaders();
-		HttpEntity<String> httpEntity = new HttpEntity<String>(httpHeaders);
-
-		try {
-			return restTemplate.exchange(url, HttpMethod.GET, httpEntity, ResponseEntity.class).getBody();
-		} catch (HttpStatusCodeException e) {
-			return ResponseEntity.status(e.getRawStatusCode()).body(e.getResponseBodyAs(Error.class));
-		}
-
-	}
 
 }

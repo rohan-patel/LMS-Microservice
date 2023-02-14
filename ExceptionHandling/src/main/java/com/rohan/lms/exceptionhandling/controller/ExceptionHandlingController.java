@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.rohan.lms.exceptionhandling.exceptions.BookUnavailableException;
 import com.rohan.lms.exceptionhandling.exceptions.EntityAlreadyExistsException;
 import com.rohan.lms.exceptionhandling.exceptions.InsufficientDataException;
 
@@ -14,7 +15,7 @@ public class ExceptionHandlingController {
 
 	@GetMapping("/entity-not-found")
 	public void entityNotFound(@RequestParam String message) {
-		throw new EntityAlreadyExistsException(message);
+		throw new EntityNotFoundException(message);
 	}
 	
 	@GetMapping("/insufficient-data")
@@ -25,5 +26,10 @@ public class ExceptionHandlingController {
 	@GetMapping("/entity-already-exists")
 	public void entityAlreadyExists(@RequestParam String message) {
 		throw new EntityAlreadyExistsException(message);
+	}
+	
+	@GetMapping("/book-unavailable")
+	public void bookUnavailableException(@RequestParam String message) {
+		throw new BookUnavailableException(message);
 	}
 }

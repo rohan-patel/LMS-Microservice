@@ -38,4 +38,12 @@ eureka:
 springjms:
   requestQueue: requestQueue
   replyQueue: replyQueue
+  
+microservices:
+  communication:
+    book:
+      checks: 1
+      updateAvailabilityToFalse: 2
+      updateAvailabilityToTrue: 3
+
 

@@ -2,6 +2,8 @@ package com.rohan.lms.api.bookborrow.model;
 
 import java.sql.Timestamp;
 
+import org.hibernate.validator.constraints.Length;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Entity;
@@ -14,10 +16,13 @@ import jakarta.persistence.SequenceGenerator;
 @SequenceGenerator(name = "borrow_book_seq", allocationSize = 1, initialValue = 1)
 public class BorrowBook {
 
+	static private int timeLimitInDays = 30;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "borrow_book_seq")
 	private Long borrowId;
 
+	@Length(min=12, max=13)
 	private String isbn;
 	private Long memberId;
 	private Long employeeId;
@@ -63,6 +68,14 @@ public class BorrowBook {
 		this.employeeId = employeeId;
 		this.borrowedOn = borrowedOn;
 		this.toBeReturnedOn = toBeReturnedOn;
+	}
+
+	public static int getTimeLimitInDays() {
+		return timeLimitInDays;
+	}
+
+	public static void setTimeLimitInDays(int timeLimitInDays) {
+		BorrowBook.timeLimitInDays = timeLimitInDays;
 	}
 
 	public Long getBorrowId() {
