@@ -14,7 +14,7 @@
 	<name>LmsMember</name>
 	<description>Microservice to Handle Members</description>
 	<properties>
-		<java.version>17</java.version>
+		<java.version>8</java.version>
 		<spring-cloud.version>2022.0.0</spring-cloud.version>
 	</properties>
 	<dependencies>
